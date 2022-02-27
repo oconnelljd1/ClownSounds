@@ -24,22 +24,24 @@ public class DropDownController : MonoBehaviour
 
     private void OnClick()
     {
-        Vector3 scale = arrow.localScale;
-        if(list.activeInHierarchy)
-        {
-            scale.y = Mathf.Abs(scale.y);
-        }
-        else
-        {
-            scale.y = Mathf.Abs(scale.y) * -1f;
-        }
         list.SetActive(!list.activeInHierarchy);
-        arrow.localScale = scale;
+        ToggleArrowScale(!list.activeInHierarchy);
     }
 
     public void SetItem(string text)
     {
         label.text = text;
         list.SetActive(false);
+        ToggleArrowScale(true);
+    }
+
+    private void ToggleArrowScale(bool positive)
+    {
+        Vector3 scale = arrow.localScale;
+        if(positive)
+            scale.y = Mathf.Abs(scale.y);
+        else
+            scale.y = Mathf.Abs(scale.y) * -1f;
+        arrow.localScale = scale;
     }
 }
